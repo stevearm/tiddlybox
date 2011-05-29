@@ -100,9 +100,4 @@ public class DropboxWikiClient {
 			}
 		});
 	}
-
-	public static void main(String[] args) throws IOException {
-		new DropboxWikiClient("h0uwzbebv9414hq", "zgin0an484a9du4",
-				"/TiddlyBox/test.txt").pushWiki("Contents");
-	}
 }

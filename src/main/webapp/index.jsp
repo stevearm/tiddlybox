@@ -8,6 +8,9 @@
 
     <p>It allows you to edit your TiddlyWiki online and save the file back
     into your dropbox account</p>
-    <a href="<%= com.horsefire.tiddly.tiddlybox.BootstrapListener.WIKI_URL %>">Log in</a>
+    
+    <% String wikiBase = com.horsefire.tiddly.tiddlybox.BootstrapListener.WIKI_URL; %>
+    <p>Use the url to specify where you wiki is. If your wiki is in your Dropbox under /MyWiki/Tiddly.html, then
+    go to <a href="<%= wikiBase %>/MyWiki/Tiddly.html">/MyWiki/Tiddly.html</a>
   </body>
 </html>
