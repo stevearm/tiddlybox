@@ -16,42 +16,57 @@ import oauth.signpost.exception.OAuthExpectationFailedException;
 import oauth.signpost.exception.OAuthMessageSignerException;
 import oauth.signpost.exception.OAuthNotAuthorizedException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Singleton;
 
 @SuppressWarnings("serial")
 @Singleton
 public class HandshakeOneServlet extends HttpServlet {
 
+	private static final Logger LOG = LoggerFactory
+			.getLogger(HandshakeOneServlet.class);
+
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		final UserPreferences prefs = UserPreferences.get(req);
 
 		final OAuthConsumer consumer = new DefaultOAuthConsumer(
-				DropboxApi.VALUE_CONSUMER_KEY, DropboxApi.VALUE_CONSUMER_SECRET);
+				DropboxWikiClient.VALUE_CONSUMER_KEY,
+				DropboxWikiClient.VALUE_CONSUMER_SECRET);
 		final OAuthProvider provider = new DefaultOAuthProvider(
-				DropboxApi.VALUE_REQUEST_TOKEN_URL,
-				DropboxApi.VALUE_ACCESS_TOKEN_URL,
-				DropboxApi.VALUE_AUTHORIZATION_URL);
+				DropboxWikiClient.VALUE_REQUEST_TOKEN_URL,
+				DropboxWikiClient.VALUE_ACCESS_TOKEN_URL,
+				DropboxWikiClient.VALUE_AUTHORIZATION_URL);
 
 		try {
+			String host = "http://" + req.getLocalName();
+			if (req.getLocalPort() != 80) {
+				host = host + ':' + req.getLocalPort();
+			}
 			final String url = provider.retrieveRequestToken(consumer,
-					TiddlyBoxUrls.BASE_URL
+					(host + req.getContextPath())
 							+ BootstrapListener.HANDSHAKE_TWO_URL);
 			prefs.setOauthTokenKey(consumer.getToken());
 			prefs.setOauthTokenSecret(consumer.getTokenSecret());
 			resp.sendRedirect(url);
 		} catch (OAuthMessageSignerException e) {
-			resp.getWriter().print("Failure. See logs");
-			e.printStackTrace(System.out);
+			error(resp, e);
 		} catch (OAuthNotAuthorizedException e) {
-			resp.getWriter().print("Failure. See logs");
-			e.printStackTrace(System.out);
+			error(resp, e);
 		} catch (OAuthExpectationFailedException e) {
-			resp.getWriter().print("Failure. See logs");
-			e.printStackTrace(System.out);
+			error(resp, e);
 		} catch (OAuthCommunicationException e) {
-			resp.getWriter().print("Failure. See logs");
-			e.printStackTrace(System.out);
+			error(resp, e);
 		}
+	}
+
+	private void error(HttpServletResponse resp, Exception e)
+			throws IOException {
+		String message = "Failure during part one of handshake";
+		resp.getWriter().print(message);
+		LOG.error(message, e);
 	}
 }

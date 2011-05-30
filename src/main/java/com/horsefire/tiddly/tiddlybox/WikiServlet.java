@@ -33,11 +33,13 @@ public class WikiServlet extends HttpServlet {
 			throws IOException, OAuthMessageSignerException,
 			OAuthExpectationFailedException, OAuthCommunicationException {
 		final OAuthConsumer consumer = new DefaultOAuthConsumer(
-				DropboxApi.VALUE_CONSUMER_KEY, DropboxApi.VALUE_CONSUMER_SECRET);
-		consumer.setTokenWithSecret(prefs.getOauthTokenKey(), prefs
-				.getOauthTokenSecret());
+				DropboxWikiClient.VALUE_CONSUMER_KEY,
+				DropboxWikiClient.VALUE_CONSUMER_SECRET);
+		consumer.setTokenWithSecret(prefs.getOauthTokenKey(),
+				prefs.getOauthTokenSecret());
 
-		final URL url = new URL(DropboxApi.FILE_BASE_URL + prefs.getWikiPath());
+		final URL url = new URL(DropboxWikiClient.FILE_BASE_URL
+				+ prefs.getWikiPath());
 		final HttpURLConnection connection = (HttpURLConnection) url
 				.openConnection();
 		connection.setDoOutput(true);
@@ -48,8 +50,8 @@ public class WikiServlet extends HttpServlet {
 			String contents = Util.extractString(connection.getInputStream());
 			return contents;
 		}
-		LOG.error("Error getting wiki. Got response {}", connection
-				.getResponseCode());
+		LOG.error("Error getting wiki. Got response {}",
+				connection.getResponseCode());
 		throw new IOException();
 	}
 
@@ -66,7 +68,7 @@ public class WikiServlet extends HttpServlet {
 		return prefs;
 	}
 
-	// final String wikiPath = req.getPathInfo();
+	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException, ServletException {
 		final UserPreferences prefs = getPrefs(req, req.getPathInfo());
@@ -80,23 +82,27 @@ public class WikiServlet extends HttpServlet {
 			PrintWriter out = resp.getWriter();
 			out.println(m_morpher.prepareToServe(contents));
 		} catch (OAuthMessageSignerException e) {
-			resp.getWriter().print("Failure. See logs");
-			LOG.error("Problem displaying wiki", e);
+			error(resp, e);
 		} catch (OAuthExpectationFailedException e) {
-			resp.getWriter().print("Failure. See logs");
-			LOG.error("Problem displaying wiki", e);
+			error(resp, e);
 		} catch (OAuthCommunicationException e) {
-			resp.getWriter().print("Failure. See logs");
-			LOG.error("Problem displaying wiki", e);
+			error(resp, e);
 		}
+	}
+
+	private void error(HttpServletResponse resp, Exception e)
+			throws IOException {
+		String message = "Problem displaying wiki";
+		resp.getWriter().print(message);
+		LOG.error(message, e);
 	}
 
 	private void pushWikiContents(UserPreferences prefs, String content)
 			throws IOException, OAuthMessageSignerException,
 			OAuthExpectationFailedException, OAuthCommunicationException {
-		final DropboxWikiClient client = new DropboxWikiClient(prefs
-				.getOauthTokenKey(), prefs.getOauthTokenSecret(), prefs
-				.getWikiPath());
+		final DropboxWikiClient client = new DropboxWikiClient(
+				prefs.getOauthTokenKey(), prefs.getOauthTokenSecret(),
+				prefs.getWikiPath());
 		client.pushWiki(content);
 	}
 

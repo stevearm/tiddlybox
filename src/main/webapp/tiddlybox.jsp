@@ -17,7 +17,6 @@ tiddlybox_setup = function() {
   }
 }
 
-tiddlybox_baseUrl = "<%= com.horsefire.tiddly.tiddlybox.TiddlyBoxUrls.BASE_URL %>";
-if (document.location.toString().startsWith(tiddlybox_baseUrl)) {
+if (document.location.toString().startsWith("http")) {
   window.setTimeout(tiddlybox_setup, 1000);
 }

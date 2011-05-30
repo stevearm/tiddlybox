@@ -11,6 +11,6 @@
     
     <% String wikiBase = com.horsefire.tiddly.tiddlybox.BootstrapListener.WIKI_URL; %>
     <p>Use the url to specify where you wiki is. If your wiki is in your Dropbox under /MyWiki/Tiddly.html, then
-    go to <a href="<%= wikiBase %>/MyWiki/Tiddly.html">/MyWiki/Tiddly.html</a>
+    go to <a href="<%= wikiBase %>/MyWiki/Tiddly.html"><%= wikiBase %>/MyWiki/Tiddly.html</a>
   </body>
 </html>
