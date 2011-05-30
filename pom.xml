@@ -4,7 +4,7 @@
 	<groupId>com.horsefire.tiddly</groupId>
 	<artifactId>tiddlybox</artifactId>
 	<packaging>war</packaging>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>TiddlyBox</name>
 
 	<properties>
