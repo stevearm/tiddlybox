@@ -42,8 +42,8 @@ public class HandshakeOneServlet extends HttpServlet {
 				DropboxWikiClient.VALUE_AUTHORIZATION_URL);
 
 		try {
-			String host = "http://" + req.getLocalName();
-			if (req.getLocalPort() != 80) {
+			String host = "http://" + req.getServerName();
+			if (req.getServerPort() != 80) {
 				host = host + ':' + req.getLocalPort();
 			}
 			final String url = provider.retrieveRequestToken(consumer,
