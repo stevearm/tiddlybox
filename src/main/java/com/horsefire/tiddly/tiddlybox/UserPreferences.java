@@ -18,10 +18,6 @@ public class UserPreferences {
 		return prefs;
 	}
 
-	private String m_wikiPath;
-	private String m_oauthTokenKey;
-	private String m_oauthTokenSecret;
-
 	private static boolean isEmpty(String string) {
 		return string == null || string.isEmpty();
 	}
@@ -31,6 +27,10 @@ public class UserPreferences {
 			throw new IllegalArgumentException(title + " can't be null");
 		}
 	}
+
+	private String m_wikiPath;
+	private String m_oauthTokenKey;
+	private String m_oauthTokenSecret;
 
 	public boolean needsAuthorization() {
 		return isEmpty(m_oauthTokenKey) || isEmpty(m_oauthTokenSecret);

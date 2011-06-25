@@ -4,12 +4,11 @@ tiddlybox_setup = function() {
 
   /* This redefines saveChanges from http://svn.tiddlywiki.org/Trunk/core/js/Saving.js */
   saveChanges = function(onlyIfDirty, tiddlers) {
-    if(onlyIfDirty && !store.isDirty())
-      return;
+    if(onlyIfDirty && !store.isDirty()) { return; }
     clearMessage();
     var startTime = new Date();
-    jQuery.post('<%= com.horsefire.tiddly.tiddlybox.UserPreferences.get(request).getFullWikiPath()
-%>', store.allTiddlersAsHtml(),
+    jQuery.post('<%= com.horsefire.tiddly.tiddlybox.UserPreferences.get(request).getFullWikiPath() %>',
+      store.allTiddlersAsHtml(),
       function() {
         displayMessage("Saved changes - " + (new Date() - startTime) + "ms");
         store.setDirty(false);
