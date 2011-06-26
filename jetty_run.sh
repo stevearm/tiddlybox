@@ -1,1 +1,1 @@
-MAVEN_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=4000,server=y,suspend=n' mvn jetty:run
+mvn -Dappkey=myappkey -Dappsecret=myappsecret jetty:run
