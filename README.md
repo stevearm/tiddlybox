@@ -5,6 +5,9 @@ and update the wiki from a computer that does not have the Dropbox client instal
 
 ## Getting started
 
+### See a live demo
+I have a demo setup on EC2 at [http://tiddlybox.horsefire.com/](http://tiddlybox.horsefire.com/)
+
 ### Quickstart if you have Maven
 1. Download the source
 2. Run: `mvn -Dappkey=9vc7omt80m63p6q -Dappsecret=27riv02ia4c92hf jetty:run`
