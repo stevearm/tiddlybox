@@ -17,9 +17,9 @@ your own keypair, or use my test pair (see below).
 
 To run the app, download the WAR file, deploy it in Jetty or Tomcat, and set the following
 environment variables:
-+ appkey
-+ appsecret
+-appkey
+-appsecret
 
 I have a test pair generated for this project, so if you don't want to generate your own, use:
-+ appkey=9vc7omt80m63p6q
-+ appsecret=27riv02ia4c92hf
++  appkey=9vc7omt80m63p6q
++  appsecret=27riv02ia4c92hf
