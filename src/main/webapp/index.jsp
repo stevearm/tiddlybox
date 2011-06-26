@@ -2,12 +2,18 @@
 <html>
 <head>
   <title>TiddlyBox</title>
+  <style type="text/css">
+.about {
+  font-size: small;
+  bottom: 10px;
+  position: absolute;
+}
+  </style>
   <script type="text/javascript">
-
 function getPath() {
   var path = document.getElementById('path').value.replace(/\\/g, '/');
-  if (path[0] != '/') {
-    return '/'.concat(path);
+  if (path[0] == '/') {
+    return path.substring(1);
   }
   return path;
 }
@@ -38,6 +44,9 @@ function updateLink() {
     your wiki will open up. Editing the wiki will save the changes back to your account, so they'll be synced to your computer.</p>
     Dropbox path <input id="path" type="text" value="/Wiki/TiddlyWiki.html" onchange="updateLink();"/>
     is viewable at <a id="link" href="/broken">/broken</a>
+  </div>
+  <div class="about">
+    This open-source project is hosted at <a href="https://github.com/stevearm/tiddlybox">GitHub</a>.
   </div>
   <script type="text/javascript">updateLink();</script>
 </body>
