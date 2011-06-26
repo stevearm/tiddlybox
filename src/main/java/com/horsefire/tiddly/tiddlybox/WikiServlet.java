@@ -49,8 +49,8 @@ public class WikiServlet extends HttpServlet {
 			throws IOException, OAuthMessageSignerException,
 			OAuthExpectationFailedException, OAuthCommunicationException {
 		final OAuthConsumer consumer = new DefaultOAuthConsumer(
-				DropboxWikiClient.VALUE_CONSUMER_KEY,
-				DropboxWikiClient.VALUE_CONSUMER_SECRET);
+				AppCredentials.INSTANCE.getKey(),
+				AppCredentials.INSTANCE.getSecret());
 		consumer.setTokenWithSecret(prefs.getOauthTokenKey(),
 				prefs.getOauthTokenSecret());
 

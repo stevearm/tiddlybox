@@ -20,6 +20,10 @@ public class BootstrapListener extends GuiceServletContextListener {
 	@Override
 	protected Injector getInjector() {
 		LOG.info("Starting container");
+
+		// Do this so we fail-fast if the environment variables are missing
+		AppCredentials.INSTANCE.getKey();
+
 		return Guice.createInjector(new MyServletModule());
 	}
 

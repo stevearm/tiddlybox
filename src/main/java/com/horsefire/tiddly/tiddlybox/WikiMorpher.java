@@ -29,8 +29,7 @@ public class WikiMorpher {
 	public StringBuilder prepareToServe(String original) {
 		StringBuilder result = new StringBuilder();
 		result.append(getToEndOf(original, "<!--POST-SCRIPT-START-->"));
-		result
-				.append("<script type=\"text/javascript\" src=\"/tiddlybox.jsp\"></script>");
+		result.append("<script type=\"text/javascript\" src=\"/tiddlybox.jsp\"></script>");
 		result.append(getFromStartOf(original, "<!--POST-SCRIPT-END-->"));
 		return result;
 	}

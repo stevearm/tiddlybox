@@ -34,8 +34,8 @@ public class HandshakeOneServlet extends HttpServlet {
 		final UserPreferences prefs = UserPreferences.get(req);
 
 		final OAuthConsumer consumer = new DefaultOAuthConsumer(
-				DropboxWikiClient.VALUE_CONSUMER_KEY,
-				DropboxWikiClient.VALUE_CONSUMER_SECRET);
+				AppCredentials.INSTANCE.getKey(),
+				AppCredentials.INSTANCE.getSecret());
 		final OAuthProvider provider = new DefaultOAuthProvider(
 				DropboxWikiClient.VALUE_REQUEST_TOKEN_URL,
 				DropboxWikiClient.VALUE_ACCESS_TOKEN_URL,
