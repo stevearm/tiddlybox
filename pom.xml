@@ -3,7 +3,7 @@
 	<groupId>com.horsefire.tiddly</groupId>
 	<artifactId>tiddlybox</artifactId>
 	<packaging>war</packaging>
-	<version>1.3</version>
+	<version>1.4-SNAPSHOT</version>
 	<name>TiddlyBox</name>
 
 	<scm>
