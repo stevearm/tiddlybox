@@ -97,7 +97,7 @@ public class WikiServlet extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		try {
 			final String contents = getUpdatedWikiContents(prefs);
-			out.println(m_morpher.prepareToServe(contents));
+			out.println(m_morpher.prepareToServe(contents, req));
 		} catch (OAuthMessageSignerException e) {
 			getError(out, e);
 		} catch (OAuthExpectationFailedException e) {

@@ -1,4 +1,3 @@
-<%@page contentType="text/javascript" %>
 tiddlybox_setup = function() {
   readOnly = false;
 
@@ -7,8 +6,7 @@ tiddlybox_setup = function() {
     if(onlyIfDirty && !store.isDirty()) { return; }
     clearMessage();
     var startTime = new Date();
-    jQuery.post('<%= com.horsefire.tiddly.tiddlybox.UserPreferences.get(request).getFullWikiPath() %>',
-      store.allTiddlersAsHtml(),
+    jQuery.post(tiddlybox_post_url, store.allTiddlersAsHtml(),
       function() {
         displayMessage("Saved changes - " + (new Date() - startTime) + "ms");
         store.setDirty(false);

@@ -1,5 +1,7 @@
 package com.horsefire.tiddly.tiddlybox;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,10 +28,13 @@ public class WikiMorpher {
 		return base.substring(index, base.length() - 1);
 	}
 
-	public StringBuilder prepareToServe(String original) {
+	public StringBuilder prepareToServe(String original,
+			HttpServletRequest request) {
 		StringBuilder result = new StringBuilder();
 		result.append(getToEndOf(original, "<!--POST-SCRIPT-START-->"));
-		result.append("<script type=\"text/javascript\" src=\"/tiddlybox.jsp\"></script>");
+		result.append("<script type=\"text/javascript\" src=\"/tiddlybox.js\"></script>");
+		result.append("<script type=\"text/javascript\">var tiddlybox_post_url = '"
+				+ UserPreferences.get(request).getFullWikiPath() + "'</script>");
 		result.append(getFromStartOf(original, "<!--POST-SCRIPT-END-->"));
 		return result;
 	}
