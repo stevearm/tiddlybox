@@ -3,6 +3,10 @@
 If you use TiddlyWiki by storing it on your Dropbox, this webapp will let you read
 and update the wiki from a computer that does not have the Dropbox client installed.
 
+## Licence
+
+This project is released under the Apache 2.0. See attached LICENCE.txt
+
 ## Getting started
 
 ### See a live demo
